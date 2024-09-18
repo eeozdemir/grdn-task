@@ -31,12 +31,36 @@ variable "cluster_name" {
   default     = "guardian-eks-cluster"
 }
 
-variable "frontend_image" {
-  description = "Docker image for the frontend"
+variable "desired_size" {
+  description = "Desired number of worker nodes"
+  type        = number
+  default     = 2
+}
+
+variable "max_size" {
+  description = "Maximum number of worker nodes"
+  type        = number
+  default     = 3
+}
+
+variable "min_size" {
+  description = "Minimum number of worker nodes"
+  type        = number
+  default     = 1
+}
+
+variable "instance_type" {
+  description = "Instance type for worker nodes"
+  type        = string
+  default     = "t3.medium"
+}
+
+variable "db_username" {
+  description = "Username for the RDS instance"
   type        = string
 }
 
-variable "backend_image" {
-  description = "Docker image for the backend"
+variable "db_password" {
+  description = "Password for the RDS instance"
   type        = string
 }
