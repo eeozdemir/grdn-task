@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/healthz', (req, res) => {
   res.json({ message: 'Welcome to the backend API' });
 });
 

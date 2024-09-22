@@ -14,6 +14,32 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: 637423621036.dkr.ecr.eu-central-1.amazonaws.com/frontend-app:latest
+        image: 637423621036.dkr.ecr.eu-central-1.amazonaws.com/grdn-ecr:frontend-v0.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+        env:
+        - name: BACKEND_URL
+          value: "http://backend:3000"  # Adjust this to your backend service name

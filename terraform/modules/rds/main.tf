@@ -1,7 +1,7 @@
 resource "aws_db_instance" "default" {
   identifier        = var.db_identifier
   engine            = "postgres"
-  engine_version    = "15.3"
+#  engine_version    = "14.7"
   instance_class    = var.instance_class
   allocated_storage = 20
   
@@ -13,6 +13,11 @@ resource "aws_db_instance" "default" {
   db_subnet_group_name   = aws_db_subnet_group.default.name
 
   skip_final_snapshot = true
+
+  tags = {
+    Name        = "PostgreSQL Database"
+    Environment = var.environment
+  }
 }
 
 resource "aws_db_subnet_group" "default" {

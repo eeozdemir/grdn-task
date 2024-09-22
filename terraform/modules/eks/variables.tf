@@ -36,3 +36,14 @@ variable "instance_type" {
   type        = string
   default     = "t3.medium"
 }
+
+variable "subnet_ids" {
+  description = "List of subnet IDs for the EKS cluster"
+  type        = list(string)
+}
+
+variable "additional_security_group_ids" {
+  description = "Additional security group IDs to attach to the node group"
+  type        = list(string)
+  default     = []
+}

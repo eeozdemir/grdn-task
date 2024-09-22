@@ -17,6 +17,7 @@ variable "db_name" {
 variable "db_username" {
   description = "Username for the master DB user"
   type        = string
+  default     = "guardian"
 }
 
 variable "db_password" {
@@ -37,4 +38,10 @@ variable "vpc_cidr" {
 variable "subnet_ids" {
   description = "A list of VPC subnet IDs"
   type        = list(string)
+}
+
+variable "environment" {
+  description = "The environment this database is for (e.g. dev, test, prod)"
+  type        = string
+  default     = "dev"
 }

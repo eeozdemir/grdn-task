@@ -32,3 +32,8 @@ output "cluster_ca_certificate" {
   value       = module.eks.cluster_ca_certificate
   description = "CA certificate for the EKS cluster"
 }
+
+output "rds_endpoint" {
+  description = "RDS instance endpoint"
+  value       = module.rds.db_instance_endpoint
+}

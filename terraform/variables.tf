@@ -55,12 +55,30 @@ variable "instance_type" {
   default     = "t3.medium"
 }
 
+variable "db_host" {
+  description = "Database host"
+  type        = string
+}
+
 variable "db_username" {
-  description = "Username for the RDS instance"
+  description = "Database username"
   type        = string
 }
 
 variable "db_password" {
-  description = "Password for the RDS instance"
+  description = "Database password"
   type        = string
+  sensitive   = true
+}
+
+variable "db_name" {
+  description = "Database name"
+  type        = string
+  default     = "grdndb"
+}
+
+variable "environment" {
+  description = "The environment this infrastructure is for (e.g. dev, test, prod)"
+  type        = string
+  default     = "dev"
 }
