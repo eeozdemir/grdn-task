@@ -215,3 +215,35 @@ resource "aws_iam_role_policy_attachment" "external_secrets_secrets_manager" {
   policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
   role       = aws_iam_role.external_secrets.name
 }
+
+resource "aws_iam_policy" "cloudwatch_logs_policy" {
+  name        = "${var.cluster_name}-cloudwatch-logs-policy"
+  path        = "/"
+  description = "IAM policy for CloudWatch Logs"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "logs:DescribeLogStreams"
+        ]
+        Resource = "arn:aws:logs:*:*:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_logs_policy_attachment" {
+  policy_arn = aws_iam_policy.cloudwatch_logs_policy.arn
+  role       = aws_iam_role.eks_node_group.name
+}
+
+resource "aws_eks_addon" "cloudwatch" {
+  cluster_name = aws_eks_cluster.main.name
+  addon_name   = "amazon-cloudwatch-observability"
+}

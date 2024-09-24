@@ -210,3 +210,13 @@ resource "kubernetes_secret" "db_secrets" {
 
   type = "Opaque"
 }
+
+module "monitoring" {
+  source       = "./modules/monitoring"
+  cluster_name = module.eks.cluster_name
+  sns_topic_arn = aws_sns_topic.alarms.arn
+}
+
+resource "aws_sns_topic" "alarms" {
+  name = "${var.cluster_name}-alarms"
+}
